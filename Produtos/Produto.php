@@ -6,14 +6,14 @@ include_once 'conectar.php';
 class Produto{
     private $id;
     private $nome;
-    private $estoque
+    private $estoque;
     private $conn;
 
     //getter e setter
     public function getId() { 
         return $this->id;
     }
-    public function setId(Şiid){ 
+    public function setId($iid){ 
         $this->id = $iid;
     }
     public function getNome () { 
@@ -38,7 +38,7 @@ class Produto{
             return $sql->fetchAll();
             $this->conn = null;
         } catch (\Throwable $th) {
-            echo "Erro ao executar consulta.  " . $exc ->getMessage();
+            echo "Erro ao executar consulta.  ";
         }
     }
 
