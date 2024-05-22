@@ -1,24 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <title>Poogers</title>
+    <style>
+        body {
+            font-family: "Century Gothic", sans-serif;
+        }
+
+    </style>
 </head>
 
 <body>
-<center>
-    <font face="Century Gothic" size="6"><b>Relação de Produtos Cadastrados</b><br><br><font size ="4">
-<?php
-    include_once'Produto.php';
-    $p = new Produto();
-    $pro_bd=$p->listar();
-?>
-<b>Id &nbsp;&nbsp;&nbsp;&nbsp; Nom &nbsp;&nbsp;&nbsp;&nbsp;Estoque</b>
-<?php 
-    foreach($pro_bd as $pro_mostrar){
-            echo "<br><br><b>";
-            echo $pro_mostrar[0]. "</b>";
-            echo $pro_mostrar[1]. "</br>"; 
-            echo $pro_mostrar[2]. "</br>";    
-        
-    }
-    echo "<br><br><button><a href = 'index.html'>Voltar<a/></button>"?>
+    <center>
+        <h1>Relação de Produtos Cadastrados</h1>
+        <?php
+            include_once 'Produto.php';
+            $p = new Produto();
+            $pro_bd = $p->listar();
+            ?><br><br>
+
+                <?php
+                echo "<table>";
+                echo "Id &nbsp&nbsp&nbsp Nome &nbsp&nbsp&nbsp&nbsp Estoque &nbsp&nbsp&nbsp&nbsp <br><br>";
+                
+                foreach($pro_bd as $pro_mostrar){
+                    echo "<b>" . $pro_mostrar['id'] . "</b>"; 
+                    echo $pro_mostrar['nome'] . "&nbsp&nbsp&nbsp&nbsp";
+                    echo $pro_mostrar['estoque'] . "&nbsp&nbsp&nbsp&nbsp";;
+                }
+
+                echo "</table>";
+            ?>
+        <button><a href="index.html">Voltar</a></button>
+    </center>
 </body>
+</html>

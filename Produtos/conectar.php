@@ -10,16 +10,16 @@ class Conectar extends PDO
 
     public function __construct()
     {
-        parent::__construct("mysql:host=$this->host;dbname=$this->db", "$this->usuario","$this->senha");
+        parent::__construct("mysql:host=$this->host;dbname=$this->db", $this->usuario, $this->senha);
     }
     
     public static function getInstance(){
-        if (!isset (self :: $instancia)) {
+        if (!isset(self::$instancia)) {
             try {
-                self::$instancia = new Conectar;
+                self::$instancia = new Conectar();
                 echo 'Conectado com sucesso!!!';
-            } catch (\Throwable $th) {
-                echo 'Erro ao conectar';
+            } catch (Exception $e) {
+                echo 'Erro ao conectar: ' . $e->getMessage();
                 exit();
             }
         }
@@ -27,11 +27,9 @@ class Conectar extends PDO
     }
 
     public function sql($query){
-        $this->getInstance();
-        $this-> query = $query;
-        $stmt-> $pdo ->prepare($this->query);
+        $this->query = $query;
+        $stmt = $this->prepare($this->query);
         $stmt->execute();
-        $pdo = null;
     }
 }
 ?>
