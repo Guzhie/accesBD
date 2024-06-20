@@ -5,18 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
 </head>
 <body>
     <h1>Autoria Menu</h1>
 
-<nav class="nav">
-	<ul>
-		<li><a href="#">Salvar</a>
-        <li><a href="#">Alterar</a>
-		<li><a href="#">Listar</a>
-		<li><a href="#">Consultar</a>
-		<li><a href="#">Exclusão</a>
-	</ul>
-</nav>
+    <nav class="nav">
+        <ul>
+            <li><a href="#">Salvar</a></li>
+            <li><a href="#">Alterar</a></li>
+            <li class="has-submenu"><a href="#">Listar</a>
+                <ul class="submenu">
+                    <li><a href="ListarLivro.php">Livro</a></li>
+                    <li><a href="ListarAutor.php">Autor</a></li>
+                    <li><a href="ListarAutoria.php">Autoria</a></li>
+                </ul>
+            </li>
+            <li><a href="#">Consultar</a></li>
+            <li><a href="#">Exclusão</a></li>
+        </ul>
+    </nav>
 </body>
 </html>
