@@ -21,6 +21,26 @@ class Autoria {
     public function getEditora() { return $this->editora; }
     public function setEditora($editora) { $this->editora = $editora; }
 
+    //Cadastrar Autotia
+    public function criar() {
+        try {
+            $this-> conn = new Conectar();
+            $sql = $this->conn->prepare("insert into autoria values (?, ?, ?, ?)");
+            @$sql -> bindParam(1, $this->getCodautor(), PDO::PARAM_STR);
+            @$sql -> bindParam(2, $this->getCodlivro(), PDO::PARAM_STR);
+            @$sql -> bindParam(3, $this->getDatalancamento(), PDO::PARAM_STR);
+            @$sql -> bindParam(4, $this->getEditora(), PDO::PARAM_STR);
+            if ($sql->execute() ==1) {
+                return "Registro salvo com sucesso!";
+            }
+            $this->conn = null;
+
+        } catch (PDOException $exc ) {
+            echo "Erro ao salvar registro: " . $exc->getMessage();
+        }
+
+    }
+
     // Listar todas as autorias
     public function listar() {
         try {

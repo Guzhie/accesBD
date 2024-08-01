@@ -25,6 +25,26 @@ class Autor {
     public function getNascimento() { return $this->nascimento; }
     public function setNascimento($nascimento) { $this->nascimento = $nascimento; }
 
+    //Cadastrar Autores
+    public function criar() {
+        try {
+            $this-> conn = new Conectar();
+            $sql = $this->conn->prepare("insert into autor values (null, ?, ?, ?, ?)");
+            @$sql -> bindParam(1, $this->getNomeautor(), PDO::PARAM_STR);
+            @$sql -> bindParam(2, $this->getSobrenome(), PDO::PARAM_STR);
+            @$sql -> bindParam(3, $this->getEmail(), PDO::PARAM_STR);
+            @$sql -> bindParam(4, $this->getNascimento(), PDO::PARAM_STR);
+            if ($sql->execute() ==1) {
+                return "Registro salvo com sucesso!";
+            }
+            $this->conn = null;
+
+        } catch (PDOException $exc ) {
+            echo "Erro ao salvar registro: " . $exc->getMessage();
+        }
+
+    }
+
     // Listar todos os autores
     public function listar() {
         try {

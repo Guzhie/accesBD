@@ -29,6 +29,27 @@ class Livro {
     public function getQtdepag() { return $this->qtdepag; }
     public function setQtdepag($qtdepag) { $this->qtdepag = $qtdepag; }
 
+    //Cadastrar livros
+    public function criar() {
+        try {
+            $this-> conn = new Conectar();
+            $sql = $this->conn->prepare("insert into livro values (null, ?, ?, ?, ?, ?)");
+            @$sql -> bindParam(1, $this->getTitulo(), PDO::PARAM_STR);
+            @$sql -> bindParam(2, $this->getCategoria(), PDO::PARAM_STR);
+            @$sql -> bindParam(3, $this->getIsbn(), PDO::PARAM_STR);
+            @$sql -> bindParam(4, $this->getIdioma(), PDO::PARAM_STR);
+            @$sql -> bindParam(5, $this->getQtdepag(), PDO::PARAM_STR);
+            if ($sql->execute() ==1) {
+                return "Registro salvo com sucesso!";
+            }
+            $this->conn = null;
+
+        } catch (PDOException $exc ) {
+            echo "Erro ao salvar registro: " . $exc->getMessage();
+        }
+
+    }
+
     // Listar todos os livros
     public function listar() {
         try {
