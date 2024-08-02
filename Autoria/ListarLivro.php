@@ -5,10 +5,26 @@
     <title>Livros Cadastrados</title>
     <style>
         body {
-            font-family: "Century Gothic", sans-serif;
+            font-family: Arial, sans-serif;
+            background-color: #5a464c;
+            margin: 0;
+            padding: 0;
+            color: #fff;
+        }
+        .container {
+            width: 80%;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffefbc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
         }
         table {
-            width: 50%;
+            width: 100%;
             border-collapse: collapse;
             margin: 25px 0;
             font-size: 18px;
@@ -16,18 +32,47 @@
         }
         th, td {
             padding: 12px;
-            border-bottom: 1px solid #ddd;
+            border: 1px solid #ddd;
         }
         th {
             background-color: #f2f2f2;
+            color: #333;
+        }
+        td {
+            color: #333;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
         }
         button {
-            margin-top: 20px;
+            margin: 0 10px;
+            padding: 10px 20px;
+            border: none;
+            background-color: #008CBA;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            text-align: center;
+        }
+        button a {
+            color: white;
+            text-decoration: none;
+        }
+        button:hover {
+            background-color: #007B9E;
         }
     </style>
 </head>
 <body>
-    <center>
+    <div class="container">
         <h1>Relação de Livros Cadastrados</h1>
         
         <?php
@@ -58,7 +103,10 @@
             }
             ?>
         </table>
-        <button><a href="index.html">Voltar</a></button>
-    </center>
+        <div class="button-container">
+            <button><a href="cadastrarLivro.php">Cadastrar Livro</a></button>
+            <button><a href="index.html">Voltar</a></button>
+        </div>
+    </div>
 </body>
 </html>

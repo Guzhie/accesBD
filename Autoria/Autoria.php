@@ -21,9 +21,16 @@ class Autoria {
     public function getEditora() { return $this->editora; }
     public function setEditora($editora) { $this->editora = $editora; }
 
-    //Cadastrar Autotia
+    //Cadastrar Autoria
     public function criar() {
         try {
+            if (!$this->vericacaoAutor()) {
+                return "Erro: Autor não cadastrado";
+            }
+            if (!$this->vericacaoLivro()) {
+                return "Erro: Livro não cadastrado";
+            }
+
             $this-> conn = new Conectar();
             $sql = $this->conn->prepare("insert into autoria values (?, ?, ?, ?)");
             @$sql -> bindParam(1, $this->getCodautor(), PDO::PARAM_STR);
@@ -38,8 +45,35 @@ class Autoria {
         } catch (PDOException $exc ) {
             echo "Erro ao salvar registro: " . $exc->getMessage();
         }
-
     }
+
+    public function vericacaoAutor(){
+    try {
+        $this -> conn = new Conectar();
+        $sql = $this -> conn -> prepare("select * from autor where codautor = ?");
+        $sql -> bindValue(1, $this -> getCodautor(), PDO::PARAM_INT);
+        $sql ->execute();
+        $result = $sql -> fetchColumn();
+        return $result > 0;
+    } 
+    catch (PDOException $exc) {
+        echo "Erro no código do seu Autor:" . $exc ->getMessage();
+    }
+    }
+
+    public function vericacaoLivro(){
+        try {
+            $this -> conn = new Conectar();
+            $sql = $this -> conn -> prepare("select * from livro where codlivro = ?");
+            $sql -> bindValue(1, $this -> getCodlivro(), PDO::PARAM_INT);
+            $sql ->execute();
+            $result = $sql -> fetchColumn();
+            return $result > 0;
+        } 
+        catch (PDOException $exc) {
+            echo "Erro na busca do código do seu Livro:" . $exc ->getMessage();
+        }
+        }
 
     // Listar todas as autorias
     public function listar() {

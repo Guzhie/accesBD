@@ -6,9 +6,25 @@
     <style>
         body {
             font-family: "Century Gothic", sans-serif;
+            background-color: #5a464c;
+            margin: 0;
+            padding: 0;
+            color: #fff;
+        }
+        .container {
+            width: 80%;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffefbc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
         }
         table {
-            width: 50%;
+            width: 100%;
             border-collapse: collapse;
             margin: 25px 0;
             font-size: 18px;
@@ -16,24 +32,47 @@
         }
         th, td {
             padding: 12px;
-            border-bottom: 1px solid #ddd;
+            border: 1px solid #ddd;
         }
         th {
             background-color: #f2f2f2;
+            color: #333;
+        }
+        td {
+            color: #333;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
         }
         button {
             margin-top: 20px;
+            padding: 10px 20px;
+            border: none;
+            background-color: #008CBA;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button a {
+            color: white;
+            text-decoration: none;
+        }
+        button:hover {
+            background-color: #007B9E;
         }
     </style>
 </head>
 <body>
-    <center>
+    <div class="container">
         <h1>Relação de Autorias Cadastradas</h1>
         
         <?php
             include_once 'Autoria.php';
             $autoria = new Autoria();
-            $autorias = $autoria->listar();
+            $autorais = $autoria->listar();
         ?>
         <br><br>
         <table>
@@ -44,7 +83,7 @@
                 <th>Editora</th>
             </tr>
             <?php
-            foreach($autorias as $autoria) {
+            foreach($autorais as $autoria) {
                 echo "<tr>";
                 echo "<td>" . $autoria['codautor'] . "</td>";
                 echo "<td>" . $autoria['codlivro'] . "</td>";
@@ -54,7 +93,10 @@
             }
             ?>
         </table>
-        <button><a href="index.html">Voltar</a></button>
-    </center>
+        <center>
+            <button><a href="cadastrarAutoria.php">Cadastrar Autoria</a></button>
+            <button><a href="index.html">Voltar</a></button>
+        </center>
+    </div>
 </body>
 </html>
