@@ -46,8 +46,38 @@ class Produto {
         }
 
     }
-        
 
+    //consultar
+    public function consultar(){
+        try {
+            $this-> conn = new Conectar();
+            $sql = $this->conn->prepare("select * from produtos where nome like ?");
+            @$sql -> bindParam(1, $this->getNome(), PDO::PARAM_STR);
+            $sql -> execute();
+            return $sql -> fetchAll();
+            $this->conn = null;
+
+        } catch (PDOException $exc) {
+            echo "Erro ao executar consulta. " . $exc->getMessage();
+        }
+    }
+        
+    //excluir
+    public function excluir(){
+        try {
+            $this-> conn = new Conectar();
+            $sql = $this -> conn -> prepare("delete from produtos where id = ?");
+            @$sql -> bindParam(1, $this->getId(), PDO::PARAM_STR);
+            if ($sql->execute() ==1) {
+                return "Excluido com sucesso!";
+            }
+            else{
+                return "Erro na exclusão!";
+            }
+        } catch (PDOException $exc) {
+            echo "Erro ao excluir. ". $exc->getMessage();
+        }
+    }
 
     // listar
     public function listar() {
