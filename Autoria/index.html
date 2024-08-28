@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
 </head>
+
 <body>
     <h1>Autoria Menu</h1>
 
@@ -27,9 +29,21 @@
                     <li><a href="ListarAutoria.php">Autoria</a></li>
                 </ul>
             </li>
-            <li><a href="#">Consultar</a></li>
-            <li><a href="#">Exclusão</a></li>
-        </ul>
+            <li class="has-submenu"><a href="#">Consultar</a>
+                <ul class="submenu">
+                    <li><a href="consultarLivro.php">Livro</a></li>
+                    <li><a href="consultarAutor.php">Autor</a></li>
+                    <li><a href="consultarAutoria.php">Autoria</a></li>
+                </ul>
+            </li>
+            <li class="has-submenu"><a href="#">Excluir</a>
+                <ul class="submenu">
+                    <li><a href="ExcluirLivro.php">Livro</a></li>
+                    <li><a href="ExcluirAutor.php   ">Autor</a></li>
+                    <li><a href="#">Autoria</a></li>
+                </ul>
+            </li>        </ul>
     </nav>
 </body>
+
 </html>

@@ -17,7 +17,6 @@ class Conectar extends PDO
         if (!isset(self::$instancia)) {
             try {
                 self::$instancia = new Conectar();
-                echo 'Conectado com sucesso!!!';
             } catch (Exception $e) {
                 echo 'Erro ao conectar: ' . $e->getMessage();
                 exit();
