@@ -105,6 +105,7 @@
         </table>
         <div class="button-container">
             <button><a href="cadastrarLivro.php">Cadastrar Livro</a></button>
+            <button><a href="ExcluirLivro.php">Excluir Livro</a></button>
             <button><a href="index.html">Voltar</a></button>
         </div>
     </div>

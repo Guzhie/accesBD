@@ -95,6 +95,7 @@
         </table>
         <center>
             <button><a href="cadastrarAutoria.php">Cadastrar Autoria</a></button>
+            <button><a href="ExcluirAutoria.php">Excluir     Autoria</a></button>
             <button><a href="index.html">Voltar</a></button>
         </center>
     </div>
