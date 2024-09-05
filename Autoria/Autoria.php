@@ -103,7 +103,7 @@ class Autoria
     public function excluir()
     {
         if (!$this->vericacaoAutorLivro()) {
-            return "Erro: Relação entre autor e livro";
+            return "Erro: não existe uma autoria entre esse livro e autor";
         }
         try {
             $this->conn = new Conectar();

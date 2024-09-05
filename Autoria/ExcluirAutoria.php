@@ -147,8 +147,8 @@
         <form name="cliente" method="POST" action="">
             <fieldset id="a">
                 <legend>Informe os Código do Autor e Livro da Autoria Desejada</legend>
-                <p>Código do Autor: <input name="txtcodL" type="text" size="40" maxlength="40" placeholder="ID do Autor"></p>
-                <p>Código do Livro: <input name="txtcodA" type="text" size="40" maxlength="40" placeholder="ID do Livro"></p>
+                <p>Código do Autor: <input name="txtcodA" type="text" size="40" maxlength="40" placeholder="ID do Autor"></p>
+                <p>Código do Livro: <input name="txtcodL" type="text" size="40" maxlength="40" placeholder="ID do Livro"></p>
                 <div class="button-container">
                     <input name="btnenviar" type="submit" value="Excluir"> 
                     <input name="limpar" type="reset" value="Limpar">
