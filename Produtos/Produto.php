@@ -1,86 +1,126 @@
-<?php 
+<?php
 
 include_once 'conectar.php';
 
 // atributos
-class Produto {
+class Produto
+{
     private $id;
     private $nome;
     private $estoque;
     private $conn;
 
     // getters e setters
-    public function getId() { 
+    public function getId()
+    {
         return $this->id;
     }
-    public function setId($iid) { 
+    public function setId($iid)
+    {
         $this->id = $iid;
     }
-    public function getNome() { 
+    public function getNome()
+    {
         return $this->nome;
     }
-    public function setNome($name) { 
+    public function setNome($name)
+    {
         $this->nome = $name;
     }
-    public function getEstoque() {
+    public function getEstoque()
+    {
         return $this->estoque;
     }
-    public function setEstoque($estoqui) { 
-        $this->estoque = $estoqui; 
+    public function setEstoque($estoqui)
+    {
+        $this->estoque = $estoqui;
     }
-    
+
     //criar
-    public function criar() {
+    public function criar()
+    {
         try {
-            $this-> conn = new Conectar();
+            $this->conn = new Conectar();
             $sql = $this->conn->prepare("insert into produtos values (null, ?, ?)");
-            @$sql -> bindParam(1, $this->getNome(), PDO::PARAM_STR);
-            @$sql -> bindParam(2, $this->getEstoque(), PDO::PARAM_STR);
-            if ($sql->execute() ==1) {
+            @$sql->bindParam(1, $this->getNome(), PDO::PARAM_STR);
+            @$sql->bindParam(2, $this->getEstoque(), PDO::PARAM_STR);
+            if ($sql->execute() == 1) {
                 return "Registro salvo com sucesso!";
             }
             $this->conn = null;
-
-        } catch (PDOException $exc ) {
+        } catch (PDOException $exc) {
             echo "Erro ao salvar registro: " . $exc->getMessage();
         }
+    }
 
+    //visualizar alterar
+    public function alterar()
+    {
+        try {
+            $this->conn = new Conectar();
+            $sql = $this->conn->prepare("select * from produto where id = ?");
+            @$sql->bindParam(1, $this->getId(), PDO::PARAM_STR);
+            $sql->execute();
+            return $sql->fetchAll();
+            $this->conn = null;
+        } catch (PDOException $exc) {
+            echo "Erro ao alterar: " . $exc->getMessage();
+        }
+    }
+
+    //alterar
+    public function alterar2()
+    {
+        try {
+            $this->conn = new Conectar();
+            $sql = $this->conn->prepare("update produto set nome = ?, estoque = ? where id = ?");
+            @$sql->bindParam(1, $this->getNome(), PDO::PARAM_STR);
+            @$sql->bindParam(2, $this->getEstoque(), PDO::PARAM_STR);
+            @$sql->bindParam(3, $this->getId(), PDO::PARAM_STR);
+            if ($sql->execute() == 1) {
+                return "Registro alterado com sucesso!";
+            }
+            $this->conn = null;
+        } catch (PDOException $exc) {
+            echo "Erro ao salvar o registro: " . $exc->getMessage();
+        }
     }
 
     //consultar
-    public function consultar(){
+    public function consultar()
+    {
         try {
-            $this-> conn = new Conectar();
+            $this->conn = new Conectar();
             $sql = $this->conn->prepare("select * from produtos where nome like ?");
-            @$sql -> bindParam(1, $this->getNome(), PDO::PARAM_STR);
-            $sql -> execute();
-            return $sql -> fetchAll();
+            @$sql->bindParam(1, $this->getNome(), PDO::PARAM_STR);
+            $sql->execute();
+            return $sql->fetchAll();
             $this->conn = null;
-
         } catch (PDOException $exc) {
             echo "Erro ao executar consulta. " . $exc->getMessage();
         }
     }
-        
+
     //excluir
-    public function excluir(){
+    public function excluir()
+    {
         try {
-            $this-> conn = new Conectar();
-            $sql = $this -> conn -> prepare("delete from produtos where id = ?");
-            @$sql -> bindParam(1, $this->getId(), PDO::PARAM_STR);
-            if ($sql->execute() ==1) {
+            $this->conn = new Conectar();
+            $sql = $this->conn->prepare("delete from produtos where id = ?");
+            @$sql->bindParam(1, $this->getId(), PDO::PARAM_STR);
+            if ($sql->execute() == 1) {
                 return "Excluido com sucesso!";
-            }
-            else{
+            } else {
                 return "Erro na exclusão!";
             }
         } catch (PDOException $exc) {
-            echo "Erro ao excluir. ". $exc->getMessage();
+            echo "Erro ao excluir. " . $exc->getMessage();
         }
     }
 
     // listar
-    public function listar() {
+    public function listar()
+    {
         try {
             $this->conn = Conectar::getInstance();
             $sql = $this->conn->query("SELECT * FROM produtos ORDER BY nome");
@@ -88,10 +128,8 @@ class Produto {
             $result = $sql->fetchAll(PDO::FETCH_ASSOC);
             $this->conn = null; // fechar conexão
             return $result;
-        } 
-        catch (PDOException $exc) {
+        } catch (PDOException $exc) {
             echo "Erro ao executar consulta: " . $exc->getMessage();
         }
     }
 }
-?>
