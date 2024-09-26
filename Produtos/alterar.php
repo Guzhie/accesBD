@@ -6,42 +6,49 @@
     <title>Alterar</title>
 </head>
 <body>
-    <fieldset>
-        <legend><b>Alterar</b></legend>
-        <?php 
-        $txtid= $_POST['txtid'];
-        include_once 'Produto.php';
-        $p = new Produto();
-        $p->setId($txtid);
-        $pro_bd=$p->alterar();
-        ?>
-        <br><form name="cliente2" method="post" action=""></form>
-        <?php 
-        foreach($pro_bd as $pro_mostrar){
-        ?>
+<fieldset>
+            <?php
+            $txtid = $_POST['txtid'];
+            include_once './produto.php';
+            $p = new Produto();
+            $p->setId($txtid);
+            $pro_bd = $p->alterar();
+            
+            extract($_POST, EXTR_OVERWRITE);
+            if (isset($_POST['btnAlterar'])) {
+                $p->setId($txtid);
+                $p->setNome($_POST['txtnome']);
+                $p->setEstoque($_POST['txtestoq']);
+                echo "<br><br><h3>" . $p->alterar2() . "</h3>";
+            }
 
-        <input type="hidden" name="textid" size="5" value= '<?php echo $pro_mostrar[0]?>'>
-        <b><?php echo "ID: " . $pro_mostrar[0];?></b>
-        <br><br><b><?php echo "Nome: "?></b>
-        <input type="text" name="txtnome" size="25" value='<?php echo $pro_mostrar[1]?>'>
-        <br><br><b><?php echo "Estoque: "?></b>
-        <input type="text" name="txtestoq" size="10" value='<?php echo $pro_mostrar[2]?>'>
-        <br><br><center><input type="btnalterar" type="submit" value="Alterar">
-        </center>
-        <?php }?>
-    </fieldset>
+            $p->setId($txtid);
+            $pro_bd = $p->alterar();
 
-    <?php
-    extract($_POST, EXTR_OVERWRITE);
-    if (isset($btnalterar)) {
-        include_once 'Produto.php';
-        $pro = new Produto();
-        $pro->setNome($txtnome);
-        $pro->setEstoque($txtestoq);
-        $pro->setId($txtid);
-        echo "<br><br><h3>" . $pro->alterar2() ."</h3>";
-        header("location:consult    _alterar.php");
-    } 
-    ?>
+            ?>
+            <br>
+            <form name="cliente2" action="" method="post">
+                <?php
+
+                foreach ($pro_bd as $pro_mostrar) {
+                    include_once './produto.php';
+                ?>
+                    <input type="hidden" name="txtid" size="5" value='<?php echo $pro_mostrar[0] ?>'>
+                    <b><?php echo "ID:" . $pro_mostrar[0] //posição; 
+                        ?></b>
+                    <br><br><b><?php echo "Nome: "; ?></b>
+                    <input type="text" name="txtnome" size="25" value='<?php echo $pro_mostrar[1] ?>'>
+                    <br><br><b><?php echo "Estoque :"; ?></b>
+                    <input type="text" name="txtestoq" size="10" value='<?php echo $pro_mostrar[2] ?>'>
+                    <br><br>
+
+                    <center>
+                        <input type="submit" value="Alterar" name="btnAlterar">
+                    <?php
+                }
+                    ?>
+                    </center>
+            </form>
+        </fieldset>
 </body>
 </html>
