@@ -101,7 +101,7 @@
                     <br><br><b>Email: </b>
                     <input type="text" name="txtemail" value="<?php echo $pro_mostrar[3]; ?>">
                     <br><br><b>Data de Nascimento: </b>
-                    <input type="text" name="txtnasci" value="<?php echo $pro_mostrar[4]; ?>">
+                    <input type="date" name="txtnasci" value="<?php echo $pro_mostrar[4]; ?>">
                     <br><br>
 
                     <div class="button-group">
