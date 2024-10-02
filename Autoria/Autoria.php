@@ -100,6 +100,51 @@ class Autoria
         }
     }
 
+    public function alterar()
+    {
+        if (!$this->vericacaoAutorLivro()) {
+            return "Erro: não existe uma autoria entre esse livro e autor";
+        }
+        try {
+            $this->conn = new Conectar();
+            $sql = $this->conn->prepare("SELECT * FROM autoria WHERE codautor = ? AND codlivro = ?");
+            @$sql->bindParam(1, $this->getCodautor(), PDO::PARAM_INT);
+            @$sql->bindParam(2, $this->getCodlivro(), PDO::PARAM_INT);
+            $sql->execute();
+            $resultado = $sql->fetchAll(PDO::FETCH_ASSOC); // Retorna o resultado da consulta
+
+            if (empty($resultado)) {
+                return "Erro: Não existe relação entre o autor e o livro fornecidos.";
+            }
+
+            $this->conn = null; // Fecha a conexão
+            return $resultado; // Retorna o resultado se a relação existir
+        } catch (PDOException $exc) {
+            echo "Erro ao buscar o registro: " . $exc->getMessage();
+        }
+    }
+
+
+    public function alterar2()
+    {
+        try {
+            $this->conn = new Conectar();
+            $sql = $this->conn->prepare("UPDATE autoria SET datalancamento = ?, editora = ? WHERE codautor = ? AND codlivro = ?");
+            @$sql->bindParam(1, $this->getDatalancamento(), PDO::PARAM_STR);
+            @$sql->bindParam(2, $this->getEditora(), PDO::PARAM_STR);
+            @$sql->bindParam(3, $this->getCodautor(), PDO::PARAM_INT);
+            @$sql->bindParam(4, $this->getCodlivro(), PDO::PARAM_INT);
+
+            if ($sql->execute()) {
+                return "Registro alterado com sucesso!";
+            }
+            $this->conn = null; // Fecha a conexão
+        } catch (PDOException $exc) {
+            echo "Erro ao alterar o registro: " . $exc->getMessage();
+        }
+    }
+
+
     public function excluir()
     {
         if (!$this->vericacaoAutorLivro()) {
@@ -127,9 +172,9 @@ class Autoria
             $sql = $this->conn->prepare("select count(*) from autoria where codautor = ? and codlivro = ? ");
             @$sql->bindParam(1, $this->getCodautor(), PDO::PARAM_STR);
             @$sql->bindParam(2, $this->getCodlivro(), PDO::PARAM_STR);
-            $sql -> execute();
-            $result = $sql->fetchColumn(); 
-            return $result >0;
+            $sql->execute();
+            $result = $sql->fetchColumn();
+            return $result > 0;
         } catch (PDOException $exc) {
             echo "Erro na relação entre Autor e Livro: " . $exc->getMessage();
         }

@@ -101,21 +101,63 @@ class Livro
         }
     }
 
-    public function excluir(){
+    public function excluir()
+    {
         try {
-            $this-> conn = new Conectar();
-            $sql = $this -> conn -> prepare("delete from livro where codlivro = ?");
-            @$sql -> bindParam(1, $this->getCodlivro(), PDO::PARAM_STR);
-            if ($sql->execute() ==1) {
+            $this->conn = new Conectar();
+            $sql = $this->conn->prepare("delete from livro where codlivro = ?");
+            @$sql->bindParam(1, $this->getCodlivro(), PDO::PARAM_STR);
+            if ($sql->execute() == 1) {
                 return "Excluido com sucesso!";
-            }
-            else{
+            } else {
                 return "Erro na exclusão!";
             }
         } catch (PDOException $exc) {
-            echo "Erro ao excluir. ". $exc->getMessage();
+            echo "Erro ao excluir. " . $exc->getMessage();
         }
     }
+
+    //alterar
+    //alterar (consultar um livro específico para editar)
+    public function alterar()
+    {
+        try {
+            $this->conn = new Conectar();
+            $sql = $this->conn->prepare("SELECT * from livro where codlivro = ?");
+            @$sql->bindParam(1, $this->getCodlivro(), PDO::PARAM_INT);
+            $sql->execute();
+            return $sql->fetchAll(PDO::FETCH_ASSOC); // Retorna o resultado da consulta
+            $this->conn = null; // Fecha a conexão
+        } catch (PDOException $exc) {
+            echo "Erro ao buscar o registro: " . $exc->getMessage();
+        }
+    }
+
+
+
+    //alterar2
+    //alterar2 (salvar as alterações feitas no livro)
+    public function alterar2()
+    {
+        try {
+            $this->conn = new Conectar();
+            $sql = $this->conn->prepare("UPDATE livro set titulo = ?, categoria = ?, isbn = ?, idioma = ?, qtdepag = ? where codlivro = ?");
+            @$sql->bindParam(1, $this->getTitulo(), PDO::PARAM_STR);
+            @$sql->bindParam(2, $this->getCategoria(), PDO::PARAM_STR);
+            @$sql->bindParam(3, $this->getIsbn(), PDO::PARAM_STR);
+            @$sql->bindParam(4, $this->getIdioma(), PDO::PARAM_STR);
+            @$sql->bindParam(5, $this->getQtdepag(), PDO::PARAM_INT);
+            @$sql->bindParam(6, $this->getCodlivro(), PDO::PARAM_INT);
+
+            if ($sql->execute()) {
+                return "Registro alterado com sucesso!";
+            }
+            $this->conn = null; // Fecha a conexão
+        } catch (PDOException $exc) {
+            echo "Erro ao alterar o registro: " . $exc->getMessage();
+        }
+    }
+
 
     // Listar todos os livros
     public function listar()
