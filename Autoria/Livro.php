@@ -118,9 +118,26 @@ class Livro
     }
 
     //alterar
+    public function vericacaoLivro()
+    {
+        try {
+            $this->conn = new Conectar();
+            $sql = $this->conn->prepare("select * from livro where codlivro = ?");
+            $sql->bindValue(1, $this->getCodlivro(), PDO::PARAM_INT);
+            $sql->execute();
+            $result = $sql->fetchColumn();
+            return $result > 0;
+        } catch (PDOException $exc) {
+            echo "Erro na busca do código do seu Livro:" . $exc->getMessage();
+        }
+    }
+
     //alterar (consultar um livro específico para editar)
     public function alterar()
     {
+        if (!$this->vericacaoLivro()) {
+            echo "Erro: não existe um livro com esse codigo";
+        }
         try {
             $this->conn = new Conectar();
             $sql = $this->conn->prepare("SELECT * from livro where codlivro = ?");
@@ -132,8 +149,6 @@ class Livro
             echo "Erro ao buscar o registro: " . $exc->getMessage();
         }
     }
-
-
 
     //alterar2
     //alterar2 (salvar as alterações feitas no livro)

@@ -108,6 +108,7 @@
 
 <body>
     <fieldset>
+        <h1>Verifique os Dados da Autoria</h1>
         <?php
         $codLivro = $_POST['codLivro'];
         $codAutor = $_POST['codAutor'];
@@ -130,7 +131,6 @@
         $pro_bd = $p->alterar();
         ?>
         <form name="autoria2" action="" method="post">
-            <h1>Verifique os Dados da Autoria</h1>
             <?php
             foreach ($pro_bd as $pro_mostrar) {
             ?>

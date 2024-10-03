@@ -87,6 +87,13 @@
             background-color: #e53935;
         }
 
+        input[name="voltar"] {
+            background-color: #008CBA;
+        }
+        input[name="voltar"]:hover {
+            background-color: #007B9E;
+        }
+
         button {
             background-color: #008CBA;
             color: white;
@@ -111,19 +118,20 @@
 
 <body>
     <form name="cliente" action="AlterarAutoria2.php" method="post">
-        <h1>Alteração de Livros Cadastrados</h1>
+        <h1>Alteração de Autoria Cadastrados</h1>
         <fieldset>
             <legend><b>Informe o Código do Livro e do Autor desejado:</b></legend>
             <p><b>Código do Autor:</b> <input type="text" name="codAutor" size="20" maxlength="5" placeholder="Código do Autor"></p>
             <p><b>Código do Livro:</b> <input type="text" name="codLivro" size="20" maxlength="5" placeholder="Código do Livro"></p>
         </fieldset>
         <div class="button-grid">
-            <input type="submit" value="Consultar" name="btnenviar">
+            <input type="submit" value="Alterar" name="btnenviar">
             <input type="reset" value="Limpar" name="limpar">
+            <input type="submit" name="voltar" value="Voltar ao inicio" formaction="index.html">
+            <input type="submit" name="voltar" value="Consultar" formaction="consultarAutoria.php">
+
         </div>
-        <center>
-            <button><a href="index.html">Voltar</a></button>
-        </center>
+        <br>
     </form>
 </body>
 

@@ -103,7 +103,7 @@ class Autoria
     public function alterar()
     {
         if (!$this->vericacaoAutorLivro()) {
-            return "Erro: não existe uma autoria entre esse livro e autor";
+            echo "Erro: não existe uma autoria entre esse livro e autor";
         }
         try {
             $this->conn = new Conectar();
@@ -111,14 +111,8 @@ class Autoria
             @$sql->bindParam(1, $this->getCodautor(), PDO::PARAM_INT);
             @$sql->bindParam(2, $this->getCodlivro(), PDO::PARAM_INT);
             $sql->execute();
-            $resultado = $sql->fetchAll(PDO::FETCH_ASSOC); // Retorna o resultado da consulta
-
-            if (empty($resultado)) {
-                return "Erro: Não existe relação entre o autor e o livro fornecidos.";
-            }
-
+            return $sql->fetchAll();
             $this->conn = null; // Fecha a conexão
-            return $resultado; // Retorna o resultado se a relação existir
         } catch (PDOException $exc) {
             echo "Erro ao buscar o registro: " . $exc->getMessage();
         }

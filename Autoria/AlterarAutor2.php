@@ -10,27 +10,26 @@
             background-color: #5a464c;
             margin: 0;
             padding: 0;
+            color: #333;
         }
-        form {
-            width: 50%;
+
+        fieldset {
+            max-width: 600px;
             margin: 50px auto;
             padding: 20px;
             background-color: #ffefbc;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        fieldset {
             border: 1px solid #ccc;
-            padding: 20px;
-            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
-        legend {
-            font-weight: bold;
-            padding: 0 10px;
+
+        h2 {
+            text-align: center;
+            color: #333;
         }
-        p {
-            margin: 10px 0;
-        }
-        input[type="text"], input[type="date"] {
+
+        input[type="text"],
+        input[type="date"] {
             width: calc(100% - 22px);
             padding: 10px;
             margin: 5px 0;
@@ -38,31 +37,39 @@
             border-radius: 5px;
             font-size: 16px;
         }
+
         .button-group {
             display: flex;
             justify-content: space-between;
+            margin-top: 20px;
         }
+
         input[type="submit"] {
-            width: 48%;
             padding: 10px;
             border-radius: 5px;
             font-size: 16px;
             cursor: pointer;
             border: none;
             color: white;
+            width: 48%;
         }
+
         input[name="btnAlterar"] {
-            background-color: #4CAF50;
+            background-color: #4CAF50; /* Verde para o botão de alterar */
         }
+
         input[name="btnAlterar"]:hover {
-            background-color: #45a049;
+            background-color: #45a049; /* Tom mais escuro ao passar o mouse */
         }
+
         input[name="btnVoltar"] {
-            background-color: #f44336;
+            background-color: #f44336; /* Vermelho para o botão de voltar */
         }
+
         input[name="btnVoltar"]:hover {
-            background-color: #e53935;
+            background-color: #e53935; /* Tom mais escuro ao passar o mouse */
         }
+
         h3 {
             text-align: center;
             color: #333;
@@ -71,6 +78,7 @@
 </head>
 <body>
     <fieldset>
+        <h2>Alterar Autor</h2>  
         <?php
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $txtcod = $_POST['txtcod'];

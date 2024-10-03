@@ -75,9 +75,26 @@ class Autor
         }
     }
 
+    public function vericacaoAutor()
+    {
+        try {
+            $this->conn = new Conectar();
+            $sql = $this->conn->prepare("select * from autor where codautor = ?");
+            $sql->bindValue(1, $this->getCodautor(), PDO::PARAM_INT);
+            $sql->execute();
+            $result = $sql->fetchColumn();
+            return $result > 0;
+        } catch (PDOException $exc) {
+            echo "Erro no código do seu Autor:" . $exc->getMessage();
+        }
+    }
+
     //visualizar alterar
     public function alterar()
     {
+        if (!$this->vericacaoAutor()) {
+            echo "Erro: não existe um autor com esse codigo";
+        }
         try {
             $this->conn = new Conectar();
             $sql = $this->conn->prepare("SELECT * from autor where codautor = ?");

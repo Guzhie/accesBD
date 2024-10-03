@@ -12,6 +12,12 @@
             margin: 0;
             padding: 0;
         }
+        h1 {
+            font-family: "Century Gothic", sans-serif;
+            text-align: center;
+            font-size: 2.5rem;
+            margin-top: 50px;
+        }
         form {
             width: 50%;
             margin: 50px auto;
@@ -65,6 +71,12 @@
         input[name="limpar"]:hover {
             background-color: #e53935;
         }
+        input[name="voltar"] {
+            background-color: #008CBA;
+        }
+        input[name="voltar"]:hover {
+            background-color: #007B9E;
+        }
         button {
             background-color: #008CBA;
             color: white;
@@ -86,17 +98,19 @@
 
 <body>
     <form name="cliente" method="POST" action="AlterarAutor2.php">
+    <h1>Alteração de Autores Cadastrados</h1>
         <fieldset id="a">
             <legend><b>Informe o Codigo do Autor</b></legend>
             <p>Codigo: <input name="txtcod" type="text" size="40" maxlength="40" placeholder="Codigo do autor"></p>
         </fieldset>
         <div class="button-grid">
-            <input name="btnenviar" type="submit" value="Consultar">
+            <input name="btnenviar" type="submit" value="Alterar">
             <input name="limpar" type="reset" value="Limpar">
+            <input type="submit" name="voltar" value="Voltar ao inicio" formaction="index.html">
+            <input type="submit" name="voltar" value="Consultar" formaction="consultarAutor.php">
+
         </div>
-        <br>
-        <center><button><a href="index.html">Voltar</a></button></center>
-    </form>
+            </form>
 </body>
 
 </html>
