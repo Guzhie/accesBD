@@ -35,7 +35,7 @@
                 echo "</table>";
             ?>
         </h2>
-        <button><a href="index.html">Voltar</a></button>
+        <button><a href="menu.html">Voltar</a></button>
     </center>
 </body>
 </html>

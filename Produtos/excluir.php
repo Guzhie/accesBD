@@ -30,7 +30,7 @@
     ?>
 </fieldset>
 <br><br>
-<center><button><a href="index.html">Voltar</a></button></center>
+<center><button><a href="menu.html">Voltar</a></button></center>
 </form>
 </body>
 </html>
