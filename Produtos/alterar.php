@@ -55,6 +55,7 @@
 
                 <center>
                     <input type="submit" value="Alterar" name="btnAlterar">
+                    <input type="submit" value="Voltar" formaction="menu.php">
                 <?php
             }
                 ?>
