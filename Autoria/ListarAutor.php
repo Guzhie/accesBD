@@ -71,6 +71,14 @@
     </style>
 </head>
 <body>
+    <?php
+    session_start();
+
+    if (!isset($_SESSION['usuario'])) {
+        header("Location: index.php");
+        exit();
+    }
+    ?>
     <div class="container">
         <h1>Relação de Autores Cadastrados</h1>
         
@@ -103,7 +111,7 @@
         <div class="button-container">
             <button><a href="cadastrarAutor.php">Cadastrar Autor</a></button>
             <button><a href="ExcluirAutor.php">Excluir Autor</a></button>
-            <button><a href="index.html">Voltar</a></button>
+            <button><a href="menu.php">Voltar</a></button>
         </div>
     </div>
 </body>

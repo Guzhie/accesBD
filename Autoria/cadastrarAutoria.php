@@ -108,6 +108,14 @@
     </style>
 </head>
 <body>
+    <?php
+    session_start();
+
+    if (!isset($_SESSION['usuario'])) {
+        header("Location: index.php");
+        exit();
+    }
+    ?>
     <div class="container">
         <h1>Cadastro de Autoria</h1>
         <form name="cliente" method="POST" action="">
@@ -124,7 +132,7 @@
                 <input name="btnenviar" type="submit" value="Cadastrar">
                 <input type="submit" name="visualizar" value="Visualizar Autoria" formaction="ListarAutoria.php">
                 <input name="limpar" type="submit" value="Limpar"> 
-                <input type="submit" name="voltar" value="Voltar" formaction="index.html">
+                <input type="submit" name="voltar" value="Voltar" formaction="menu.php">
                 </div>
             </fieldset>
         </form>

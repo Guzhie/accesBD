@@ -79,6 +79,14 @@
     </style>
 </head>
 <body>
+    <?php
+    session_start();
+
+    if (!isset($_SESSION['usuario'])) {
+        header("Location: index.php");
+        exit();
+    }
+    ?>
     <form name="cliente" method="POST" action="">
         <fieldset id="a">
             <legend><b>Dados do Livro</b></legend>
@@ -110,7 +118,7 @@
                 <input name="btnenviar" type="submit" value="Cadastrar">
                 <input type="submit" name="visualizar" value="Visualizar Livro" formaction="ListarLivro.php">
                 <input name="limpar" type="submit" value="Limpar"> 
-                <input type="submit" name="voltar" value="Voltar" formaction="index.html">
+                <input type="submit" name="voltar" value="Voltar" formaction="menu.php">
             </div>
         </fieldset>
     </form>

@@ -103,50 +103,76 @@
             text-align: center;
             color: #333;
         }
+
+        .mensagem {
+            text-align: center;
+            color: green;
+            font-weight: bold;
+        }
     </style>
 </head>
 
 <body>
-    <fieldset>
-        <h1>Verifique os Dados da Autoria</h1>
-        <?php
+    <?php
+    session_start();
+
+    if (!isset($_SESSION['usuario'])) {
+        header("Location: index.php");
+        exit();
+    }
+
+    include_once 'Autoria.php';
+    $mensagem = '';
+    $pro_bd = [];
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $codLivro = $_POST['codLivro'];
         $codAutor = $_POST['codAutor'];
-
-        include_once 'Autoria.php';
         $p = new Autoria();
         $p->setCodlivro($codLivro);
         $p->setCodautor($codAutor);
 
-        extract($_POST, EXTR_OVERWRITE);
-        if (isset($btnAlterar)) {
-            $pro = new Autoria();
-            $pro->setCodautor($codAutor);
-            $pro->setCodlivro($codLivro);
-            $pro->setDatalancamento($txtLanca);
-            $pro->setEditora($txtEdit);
-            echo "<br><h3>" . $pro->alterar2() . "</h3>";
-        }
+        if (isset($_POST['btnAlterar'])) {
+            // Salvar as alterações
+            $p->setDatalancamento($_POST['txtLanca']);
+            $p->setEditora($_POST['txtEdit']);
+            $resultado = $p->alterar2();
+            $mensagem = $resultado;
 
-        $pro_bd = $p->alterar();
-        ?>
+            // Recarregar os dados atualizados
+            $pro_bd = $p->alterar();
+        } else {
+            // Buscar os dados do livro/autor para exibir
+            $pro_bd = $p->alterar();
+        }
+    }
+    ?>
+    <fieldset>
+        <h1>Verifique os Dados da Autoria</h1>
+
+        <?php if (!empty($mensagem)) { ?>
+            <p class="mensagem"><?php echo $mensagem; ?></p>
+        <?php } ?>
+
         <form name="autoria2" action="" method="post">
             <?php
-            foreach ($pro_bd as $pro_mostrar) {
+            if (!empty($pro_bd)) {
+                foreach ($pro_bd as $pro_mostrar) {
             ?>
-                <input type="hidden" name="codAutor" size="5" value='<?php echo ($pro_mostrar['codautor']) ?>'>
-                <input type="hidden" name="codLivro" size="5" value='<?php echo ($pro_mostrar['codlivro']) ?>'>
-                <b><?php echo "Código do Autor: " . ($pro_mostrar['codautor']) ?></b><br>
-                <b><?php echo "Código do Livro: " . ($pro_mostrar['codlivro']) ?></b><br><br>
-                <b><?php echo "Data de Lançamento: "; ?></b>
-                <input type="date" name="txtLanca" value='<?php echo ($pro_mostrar['datalancamento']) ?>'><br>
-                <b><?php echo "Editora: "; ?></b>
-                <input type="text" name="txtEdit" value='<?php echo ($pro_mostrar['editora']) ?>'><br>
-                <div class="button-group">
-                    <input type="submit" value="Alterar" name="btnAlterar">
-                    <input type="submit" value="Voltar" name="btnVoltar" formaction="AlterarAutoria1.php">
-                </div>
+                    <input type="hidden" name="codAutor" value='<?php echo $pro_mostrar['codautor']; ?>'>
+                    <input type="hidden" name="codLivro" value='<?php echo $pro_mostrar['codlivro']; ?>'>
+                    <b><?php echo "Código do Autor: " . $pro_mostrar['codautor']; ?></b><br>
+                    <b><?php echo "Código do Livro: " . $pro_mostrar['codlivro']; ?></b><br><br>
+                    <b><?php echo "Data de Lançamento: "; ?></b>
+                    <input type="date" name="txtLanca" value='<?php echo $pro_mostrar['datalancamento']; ?>'><br>
+                    <b><?php echo "Editora: "; ?></b>
+                    <input type="text" name="txtEdit" value='<?php echo $pro_mostrar['editora']; ?>'><br>
+                    <div class="button-group">
+                        <input type="submit" value="Alterar" name="btnAlterar">
+                        <input type="submit" value="Voltar" name="btnVoltar" formaction="AlterarAutoria1.php">
+                    </div>
             <?php
+                }
             }
             ?>
         </form>

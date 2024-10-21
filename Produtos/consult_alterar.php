@@ -8,6 +8,14 @@
 </head>
 
 <body>
+    <?php
+    session_start();
+
+    if (!isset($_SESSION['usuario'])) {
+        header("Location: index.php");
+        exit();
+    }
+    ?>
     <form name="cliente" method="POST" action="alterar.php">
 
         <fieldset id="a">

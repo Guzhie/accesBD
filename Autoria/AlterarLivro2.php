@@ -1,6 +1,42 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['usuario'])) {
+    header("Location: index.php");
+    exit();
+}
+
+include_once 'Livro.php';
+$p = new Livro();
+$mensagem = '';
+$pro_bd = [];
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Se for alteração
+    if (isset($_POST['btnAlterar'])) {
+        $p->setCodlivro($_POST['codlivro']);
+        $p->setTitulo($_POST['titulo']);
+        $p->setCategoria($_POST['categoria']);
+        $p->setIsbn($_POST['isbn']);
+        $p->setIdioma($_POST['idioma']);
+        $p->setQtdepag($_POST['qtdepag']);
+        
+        // Salvar a alteração
+        $resultado = $p->alterar2();
+        $mensagem = $resultado;
+
+        // Recarregar os dados do livro atualizado
+        $pro_bd = $p->alterar();
+    } elseif (isset($_POST['codlivro'])) {
+        // Buscar os dados do livro para exibir
+        $p->setCodlivro($_POST['codlivro']);
+        $pro_bd = $p->alterar(); // Busca os dados do livro pelo código
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -75,31 +111,22 @@
             text-align: center;
             color: #333;
         }
+
+        .mensagem {
+            text-align: center;
+            color: green;
+            font-weight: bold;
+        }
     </style>
 </head>
 
 <body>
     <fieldset>
         <h2>Alterar Livro</h2>
-        <?php
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $codlivro = $_POST['codlivro'];
-            include_once 'Livro.php';
-            $p = new Livro();
-            $p->setCodlivro($codlivro);
-            $pro_bd = $p->alterar(); // Busca os dados do livro pelo código
-            
-            if (isset($_POST['btnAlterar'])) {
-                // Atualiza os dados do livro com os valores submetidos
-                $p->setTitulo($_POST['titulo']);
-                $p->setCategoria($_POST['categoria']);
-                $p->setIsbn($_POST['isbn']);
-                $p->setIdioma($_POST['idioma']);
-                $p->setQtdepag($_POST['qtdepag']);
-                echo "<br><br><h3>" . $p->alterar2() . "</h3>"; // Salva as alterações
-            }
-        }
-        ?>
+
+        <?php if (!empty($mensagem)) { ?>
+            <p class="mensagem"><?php echo $mensagem; ?></p>
+        <?php } ?>
 
         <form name="livroForm" action="" method="post">
             <?php if (!empty($pro_bd)) {
@@ -131,5 +158,4 @@
         </form>
     </fieldset>
 </body>
-
 </html>

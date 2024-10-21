@@ -117,6 +117,14 @@
 </head>
 
 <body>
+    <?php
+    session_start();
+
+    if (!isset($_SESSION['usuario'])) {
+        header("Location: index.php");
+        exit();
+    }
+    ?>
     <form name="cliente" action="AlterarAutoria2.php" method="post">
         <h1>Alteração de Autoria Cadastrados</h1>
         <fieldset>
@@ -127,7 +135,7 @@
         <div class="button-grid">
             <input type="submit" value="Alterar" name="btnenviar">
             <input type="reset" value="Limpar" name="limpar">
-            <input type="submit" name="voltar" value="Voltar ao inicio" formaction="index.html">
+            <input type="submit" name="voltar" value="Voltar ao inicio" formaction="menu.php">
             <input type="submit" name="voltar" value="Consultar" formaction="consultarAutoria.php">
 
         </div>

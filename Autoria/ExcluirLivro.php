@@ -136,6 +136,14 @@
     </style>
 </head>
 <body>
+    <?php
+    session_start();
+
+    if (!isset($_SESSION['usuario'])) {
+        header("Location: index.php");
+        exit();
+    }
+    ?>
     <div class="container">
         <h1>Excluir Livro</h1>
         <form name="cliente" method="POST" action="">
@@ -167,7 +175,7 @@
                 <a href="ListarLivro.php">Listar Livros</a>
             </div>
             <div class="right-button">
-                <a href="index.html">Voltar ao Início</a>
+                <a href="menu.php">Voltar ao Início</a>
             </div>
         </div>
     </div>

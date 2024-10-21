@@ -97,6 +97,14 @@
 </head>
 
 <body>
+    <?php
+    session_start();
+
+    if (!isset($_SESSION['usuario'])) {
+        header("Location: index.php");
+        exit();
+    }
+    ?>
     <form name="cliente" method="POST" action="AlterarAutor2.php">
     <h1>Alteração de Autores Cadastrados</h1>
         <fieldset id="a">
@@ -106,7 +114,7 @@
         <div class="button-grid">
             <input name="btnenviar" type="submit" value="Alterar">
             <input name="limpar" type="reset" value="Limpar">
-            <input type="submit" name="voltar" value="Voltar ao inicio" formaction="index.html">
+            <input type="submit" name="voltar" value="Voltar ao inicio" formaction="menu.php">
             <input type="submit" name="voltar" value="Consultar" formaction="consultarAutor.php">
 
         </div>

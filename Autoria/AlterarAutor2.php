@@ -74,28 +74,55 @@
             text-align: center;
             color: #333;
         }
+
+        .mensagem {
+            text-align: center;
+            color: green;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
-    <fieldset>
-        <h2>Alterar Autor</h2>  
-        <?php
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $txtcod = $_POST['txtcod'];
-            include_once 'Autor.php';
-            $p = new Autor();
-            $p->setCodautor($txtcod);
+    <?php
+    session_start();
+
+    if (!isset($_SESSION['usuario'])) {
+        header("Location: index.php");
+        exit();
+    }
+
+    include_once 'Autor.php';
+    $mensagem = '';
+    $pro_bd = [];
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $txtcod = $_POST['txtcod'];
+        $p = new Autor();
+        $p->setCodautor($txtcod);
+
+        if (isset($_POST['btnAlterar'])) {
+            // Salvar as alterações
+            $p->setNomeautor($_POST['txtnome']);
+            $p->setSobrenome($_POST['txtsobre']);
+            $p->setEmail($_POST['txtemail']);
+            $p->setNascimento($_POST['txtnasci']);
+            $resultado = $p->alterar2();
+            $mensagem = $resultado;
+
+            // Recarregar os dados atualizados
             $pro_bd = $p->alterar();
-        
-            if (isset($_POST['btnAlterar'])) {
-                $p->setNomeautor($_POST['txtnome']);
-                $p->setSobrenome($_POST['txtsobre']);
-                $p->setEmail($_POST['txtemail']);
-                $p->setNascimento($_POST['txtnasci']);
-                echo "<br><br><h3>" . $p->alterar2() . "</h3>";
-            }
+        } else {
+            // Buscar os dados do autor para exibir
+            $pro_bd = $p->alterar();
         }
-        ?>
+    }
+    ?>
+    <fieldset>
+        <h2>Alterar Autor</h2>
+
+        <?php if (!empty($mensagem)) { ?>
+            <p class="mensagem"><?php echo $mensagem; ?></p>
+        <?php } ?>
 
         <form name="cliente2" action="" method="post">
             <?php if (!empty($pro_bd)) {

@@ -173,7 +173,7 @@
             </fieldset>
         </form>
         <div class="return-button">
-            <a href="index.html">Voltar ao Início</a>
+            <a href="menu.php">Voltar ao Início</a>
         </div>
     </div>
 </body>

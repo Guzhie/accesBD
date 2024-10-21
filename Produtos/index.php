@@ -15,34 +15,39 @@
         </fieldset>
         <br>
         <fieldset id='b'>
-        <legend><b>Opções</b></legend>
+            <legend><b>Opções</b></legend>
             <br>
             <input name="btnconsultar" type="submit" value="Acessar">
         </fieldset>
     </form>
 
     <?php
-    extract($_POST, EXTR_OVERWRITE);
-    if (isset($btnconsultar)) {
-        include_once 'Usuario.php';
-        $u = new Usuario();
-        $u->setUsuario($txtUsuario);
-        $u->setSenha($txtSenha);
-        $pro_bd=$u->logar();
+session_start(); // Iniciar a sessão
 
-        $exist = false;
-        foreach ($pro_bd as $pro_mostrar) {
-            $exist = true;
-            ?>
-            <br><b><?php echo "Bem vindo Usuario: " . $pro_mostrar[0];?></b><br><br>
-            <center><a href="menu.html"><input type="button" name="btnentrar" value="Entrar"></a></center>
-            <?php
-        }
-        if ($exist==false) {
-            header("location:loginInvalido.html");
-        }
+extract($_POST, EXTR_OVERWRITE);
+if (isset($btnconsultar)) {
+    include_once 'Usuario.php';
+    $u = new Usuario();
+    $u->setUsuario($txtUsuario);
+    $u->setSenha($txtSenha);
+    $pro_bd = $u->logar();
+
+    $exist = false;
+    foreach ($pro_bd as $pro_mostrar) {
+        $exist = true;
+        // Cria a sessão para o usuário logado
+        $_SESSION['usuario'] = $pro_mostrar[0];
+        header("Location: menu.php"); // Redireciona para o menu após login bem-sucedido
+        exit();
     }
-    ?>
+
+    if (!$exist) {
+        header("location: loginInvalido.html");
+    }
+}
+?>
+
+
 </body>
 
 </html>

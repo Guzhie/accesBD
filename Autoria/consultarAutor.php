@@ -131,6 +131,14 @@
 </head>
 
 <body>
+    <?php
+    session_start();
+
+    if (!isset($_SESSION['usuario'])) {
+        header("Location: index.php");
+        exit();
+    }
+    ?>
     <div class="container">
         <h1>Consultar Autor</h1>
         <form name="cliente" method="POST" action="">
@@ -175,7 +183,7 @@
             </fieldset>
         </form>
         <div class="return-button">
-            <a href="index.html">Voltar ao Início</a>
+            <a href="menu.php">Voltar ao Início</a>
         </div>
     </div>
 </body>
