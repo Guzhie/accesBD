@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 23/05/2024 às 19:15
+-- Tempo de geração: 21/10/2024 às 04:44
 -- Versão do servidor: 10.4.32-MariaDB
--- Versão do PHP: 8.0.30
+-- Versão do PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -21,9 +21,28 @@ SET time_zone = "+00:00";
 -- Banco de dados: `bd_autoria`
 --
 
+CREATE DATABASE `bd_autoria`;
 
-create database `bd_autoria`;
-use `bd_autoria`;
+USE `bd_autoria`;
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `acesso`
+--
+
+CREATE TABLE `acesso` (
+  `Usuario` varchar(50) NOT NULL,
+  `Senha` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `acesso`
+--
+
+INSERT INTO `acesso` (`Usuario`, `Senha`) VALUES
+('Bibliotecario', 'acess2112'),
+('Gustavo H', 'hust_123');
+
 -- --------------------------------------------------------
 
 --
@@ -44,7 +63,7 @@ CREATE TABLE `autor` (
 
 INSERT INTO `autor` (`codautor`, `nomeautor`, `sobrenome`, `email`, `nascimento`) VALUES
 (1, 'George', 'Orwell', 'george.orwell@example.com', '1903-06-25'),
-(2, 'Machado', 'de Assis', 'machado.assis@example.com', '1839-06-21'),
+(2, 'Machado', 'de Assis', 'machado.assis@example.com', '1021-02-21'),
 (3, 'Harper', 'Lee', 'harper.lee@example.com', '1926-04-28'),
 (4, 'Antoine', 'de Saint-Exupéry', 'antoine.stexupery@example.com', '1900-06-29'),
 (5, 'Jane', 'Austen', 'jane.austen@example.com', '1775-12-16'),
@@ -69,7 +88,7 @@ CREATE TABLE `autoria` (
 --
 
 INSERT INTO `autoria` (`codautor`, `codlivro`, `datalancamento`, `editora`) VALUES
-(1, 1, '1949-06-08', 'Secker & Warburg'),
+(1, 1, '2007-11-12', 'Secker & Warburg'),
 (2, 2, '1899-01-01', 'Garnier'),
 (3, 3, '1960-07-11', 'J.B. Lippincott & Co.'),
 (4, 4, '1943-04-06', 'Reynal & Hitchcock'),
@@ -101,12 +120,18 @@ INSERT INTO `livro` (`codlivro`, `titulo`, `categoria`, `isbn`, `idioma`, `qtdep
 (1, '1984', 'Ficção', '9780451524935', 'Inglês', 328),
 (2, 'Dom Casmurro', 'Romance', '9780195106817', 'Português', 288),
 (3, 'To Kill a Mockingbird', 'Ficção', '9780061120084', 'Inglês', 336),
-(4, 'O Pequeno Príncipe', 'Infantil', '9782070612758', 'Francês', 96),
+(4, 'O Pequeno Príncipe', 'Infantil', '9782070612758', 'Francês', 98),
 (5, 'Pride and Prejudice', 'Romance', '9780141040349', 'Inglês', 480);
 
 --
 -- Índices para tabelas despejadas
 --
+
+--
+-- Índices de tabela `acesso`
+--
+ALTER TABLE `acesso`
+  ADD UNIQUE KEY `Usuario` (`Usuario`);
 
 --
 -- Índices de tabela `autor`
