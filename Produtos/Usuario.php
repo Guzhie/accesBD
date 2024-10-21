@@ -22,7 +22,7 @@ class Usuario{
     function logar(){
         try {
             $this-> conn = new Conectar();
-            $sql = $this->conn->prepare("SELECT * FROM acesso WHERE Usuario LIKE ? LIKE Senha = ?");
+            $sql = $this->conn->prepare("SELECT * FROM acesso WHERE Usuario LIKE ? and Senha = ?");
             @$sql->bindParam(1, $this-> getUsuario(), PDO::PARAM_STR);
             @$sql->bindParam(2, $this-> getSenha(), PDO::PARAM_STR);
             $sql->execute();

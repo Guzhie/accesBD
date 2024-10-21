@@ -34,7 +34,7 @@
         foreach ($pro_bd as $pro_mostrar) {
             $exist = true;
             ?>
-            <br><b><?php echo "Bem vindo Usuario: " . $pro_mostrar[1];?></b><br><br>
+            <br><b><?php echo "Bem vindo Usuario: " . $pro_mostrar[0];?></b><br><br>
             <center><a href="menu.html"><input type="button" name="btnentrar" value="Entrar"></a></center>
             <?php
         }
